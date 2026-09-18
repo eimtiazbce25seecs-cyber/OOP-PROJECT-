@@ -1,0 +1,80 @@
+[
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\data\\csv_parser.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\data\\csv_parser.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/data/csv_parser.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/data/csv_parser.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\engine\\backtest.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\engine\\backtest.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/engine/backtest.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/engine/backtest.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\engine\\event.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\engine\\event.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/engine/event.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/engine/event.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\engine\\portfolio.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\engine\\portfolio.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/engine/portfolio.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/engine/portfolio.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\math\\metrics.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\math\\metrics.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/math/metrics.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/math/metrics.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\math\\monte_carlo.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\math\\monte_carlo.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/math/monte_carlo.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/math/monte_carlo.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\math\\statistics.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\math\\statistics.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/math/statistics.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/math/statistics.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\strategies\\buy_and_hold.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\strategies\\buy_and_hold.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/strategies/buy_and_hold.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/strategies/buy_and_hold.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\strategies\\factory.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\strategies\\factory.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/strategies/factory.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/strategies/factory.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\strategies\\mean_reversion.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\strategies\\mean_reversion.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/strategies/mean_reversion.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/strategies/mean_reversion.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\strategies\\sma_crossover.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\strategies\\sma_crossover.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/strategies/sma_crossover.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/strategies/sma_crossover.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/include -IC:/Users/ZYX/Desktop/OOP/src -g -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\quant.dir\\src\\ui\\report.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\ui\\report.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/ui/report.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant.dir/src/ui/report.cpp.obj"
+},
+{
+  "directory": "C:/Users/ZYX/Desktop/OOP/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Users/ZYX/Desktop/OOP/src -IC:/Users/ZYX/Desktop/OOP/include -g -std=c++17 -o CMakeFiles\\quant_sim.dir\\src\\main.cpp.obj -c C:\\Users\\ZYX\\Desktop\\OOP\\src\\main.cpp",
+  "file": "C:/Users/ZYX/Desktop/OOP/src/main.cpp",
+  "output": "C:/Users/ZYX/Desktop/OOP/build/CMakeFiles/quant_sim.dir/src/main.cpp.obj"
+}
+]

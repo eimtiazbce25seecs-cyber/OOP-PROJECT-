@@ -1,0 +1,14 @@
+{
+  // Keep CMake Tools pointed at the UCRT64 toolchain in this folder.
+  "cmake.generator": "Ninja",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.configureOnOpen": false,
+  "cmake.exportCompileCommandsFile": true,
+
+  // Re-enable C/C++ IntelliSense for this workspace only.
+  // (Your user settings disable it globally for the STM32/clangd setup.)
+  "C_Cpp.intelliSenseEngine": "default",
+  "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+  "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+}

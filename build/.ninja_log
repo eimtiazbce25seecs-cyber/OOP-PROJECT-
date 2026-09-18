@@ -1,0 +1,17 @@
+# ninja log v7
+160	2832	8114710512835060	CMakeFiles/quant.dir/src/math/statistics.cpp.obj	39f29959f8208374
+106	3458	8114710512305357	CMakeFiles/quant.dir/src/math/metrics.cpp.obj	4d5c3936276e8369
+193	3560	8114710513178583	CMakeFiles/quant.dir/src/strategies/factory.cpp.obj	666df1040ed27b37
+145	3664	8114710512684574	CMakeFiles/quant.dir/src/math/monte_carlo.cpp.obj	b27793b17064da6e
+175	3717	8114710512990311	CMakeFiles/quant.dir/src/strategies/buy_and_hold.cpp.obj	d00fa316169c1600
+76	3720	8114710511994111	CMakeFiles/quant.dir/src/engine/event.cpp.obj	d2539cccc094c582
+91	3721	8114710512153403	CMakeFiles/quant.dir/src/engine/portfolio.cpp.obj	7db0d11036169f3a
+210	3866	8114710513341867	CMakeFiles/quant.dir/src/strategies/mean_reversion.cpp.obj	22aa9feefab7f5b5
+58	3993	8114710511821579	CMakeFiles/quant.dir/src/engine/backtest.cpp.obj	8a51b5f471ce531e
+2839	5256	8114710539633636	CMakeFiles/quant.dir/src/strategies/sma_crossover.cpp.obj	7ce58c8962c41300
+3460	5899	8114710545843369	CMakeFiles/quant.dir/src/ui/report.cpp.obj	f4bec801142d4cc1
+76	1825	8114710694464626	CMakeFiles/quant.dir/src/math/monte_carlo.cpp.obj	b27793b17064da6e
+62	1546	8114710842578000	CMakeFiles/quant.dir/src/data/csv_parser.cpp.obj	af6e1a5fdcc7c7f2
+1547	2432	8114710857431695	libquant.a	9e04d8025b668a5a
+77	2617	8114710842734916	CMakeFiles/quant_sim.dir/src/main.cpp.obj	90ea94c2c3f9a35a
+2617	3757	8114710868138876	main.exe	1bfb58b659e30d39
