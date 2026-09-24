@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 // Forward declaration rather than #include <GLFW/glfw3.h>: this header is
 // included by main.cpp, and keeping GLFW out of it means the entry point does
@@ -14,7 +13,7 @@ namespace quant::ui {
 /// defaulted as a whole.
 struct GuiConfig {
     std::string title{"QuantSimulator"};
-    std::string data_path{"data/AAPL.csv"};
+    std::string data_path{"data/aapl_us_d.csv"};
     std::string strategy{"sma"};
     int width{1280};
     int height{720};
@@ -25,8 +24,7 @@ struct GuiConfig {
 /// Non-copyable, and the destructor tears everything down in reverse order of
 /// construction. That is the same RAII argument CsvParser makes about
 /// std::ifstream, one level up: there is no cleanup() to forget to call, and
-/// the contexts are released however run() exits -- normally, by exception, or
-/// by the user closing the window.
+/// the contexts are released however run() exits -- normally, or by exception.
 ///
 /// This is the GUI *shell*. It opens a window, lays out the panels and holds
 /// the widget state, but deliberately contains no analytics: the panels call
@@ -35,8 +33,8 @@ struct GuiConfig {
 class GuiApp {
 public:
     /// Throws std::runtime_error if GLFW, the window or the GL contexts cannot
-    /// be created -- main.cpp catches that and falls back to console mode.
-    explicit GuiApp(GuiConfig config = {});
+    /// be created.
+    explicit GuiApp(const GuiConfig& config);
 
     ~GuiApp();
 
@@ -52,7 +50,6 @@ private:
     void draw_menu_bar();
     void draw_controls_panel();
     void draw_plot_panel();
-    void draw_report_panel();
     void draw_status_bar();
 
     /// Releases everything that was created, in reverse order. Idempotent,
@@ -79,12 +76,12 @@ private:
     double commission_{0.001};
     int order_size_{100};
     std::string status_{"ready"};
-    bool running_{false};
+    bool show_about_{false};
 
-    // ---- Results ----------------------------------------------------------
-    // Empty until the engine is wired up, which is why the plot draws axes and
-    // an instruction rather than a line.
-    std::vector<double> equity_curve_;
+    // File > Quit sets this. Separate from glfwWindowShouldClose because that
+    // only becomes true when the window manager closes the window, and the
+    // menu has to be able to end the loop without one.
+    bool quit_requested_{false};
 };
 
 }  // namespace quant::ui

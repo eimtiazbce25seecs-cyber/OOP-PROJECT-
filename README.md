@@ -19,7 +19,7 @@ without touching the engine.
 | Layer | Purpose | Built with |
 |---|---|---|
 | **GUI** | Window, panels, charts, live parameter editing | GLFW + OpenGL 3.3 + Dear ImGui + ImPlot |
-| **Data** | Read and validate OHLCV CSV files | [lazycsv](https://github.com/ashtum/lazycsv) (header-only) |
+| **Data** | Read and validate OHLCV CSV files; fetch live prices | [lazycsv](https://github.com/ashtum/lazycsv) (header-only), [cpr](https://github.com/libcpr/cpr) + [nlohmann/json](https://github.com/nlohmann/json) |
 | **Math & Monte Carlo** | Statistics, performance metrics, bootstrap simulation | Standard library — `<random>`, `<cmath>`, `<thread>` |
 
 ### Design notes
@@ -49,6 +49,7 @@ without touching the engine.
 │   └── AAPL.csv            sample daily bars
 ├── include/                public headers — the engine's interface
 │   ├── csv_parser.hpp      CsvParser: RAII file/stream parsing
+│   ├── data_fetcher.hpp    fetch_twelvedata_prices: live prices over HTTP
 │   ├── event.hpp           Event types passed between engine and portfolio
 │   ├── metrics.hpp         PerformanceReport and the metric functions
 │   ├── monte_carlo.hpp     MonteCarloSimulator and MonteCarloResult
@@ -57,7 +58,8 @@ without touching the engine.
 └── src/
     ├── main.cpp            entry point; GUI by default, --nogui for console
     ├── data/
-    │   └── csv_parser.cpp
+    │   ├── csv_parser.cpp
+    │   └── data_fetcher.cpp
     ├── engine/
     │   ├── backtest.hpp    Backtest: the event loop driver
     │   ├── backtest.cpp
@@ -132,12 +134,14 @@ cmake -S . -B build -G Ninja
 cmake --build build
 ```
 
-The first configure downloads GLFW, Dear ImGui, ImPlot and lazycsv into
-`build/_deps/`, so it needs a network connection. The three tag-pinned
-dependencies are fetched shallow (`GIT_SHALLOW`), so this pulls a few megabytes
-rather than tens — normally well under a minute, though a slow link takes longer
-and prints nothing while GLFW is downloading. It is a **one-time cost**:
-afterwards `build/_deps/` is reused and builds are fast.
+The first configure downloads GLFW, Dear ImGui, ImPlot, lazycsv, cpr and
+nlohmann/json into `build/_deps/`, so it needs a network connection. The
+tag-pinned dependencies are fetched shallow (`GIT_SHALLOW`), so this pulls a few
+megabytes rather than tens — normally well under a minute, though a slow link
+takes longer and prints nothing while GLFW is downloading. cpr is the slow one:
+it builds libcurl from source on the first configure, which is a couple of
+minutes on its own. It is a **one-time cost**: afterwards `build/_deps/` is
+reused and builds are fast.
 
 If a download fails part-way through — a dropped connection, or DNS hiccuping —
 **just run the configure command again.** Dependencies that already succeeded are
@@ -201,7 +205,7 @@ to `stderr` and runs the ASCII report instead of failing.
 
 ## Dependencies
 
-All four are downloaded and built automatically by CMake's `FetchContent` — no
+All six are downloaded and built automatically by CMake's `FetchContent` — no
 manual install step, and nothing is vendored into the repository. Versions are
 pinned, so every clone builds the same code:
 
@@ -211,8 +215,10 @@ pinned, so every clone builds the same code:
 | [Dear ImGui](https://github.com/ocornut/imgui) | `v1.92.9b` | Immediate-mode GUI |
 | [ImPlot](https://github.com/epezent/implot) | `v1.0` | Charts inside ImGui |
 | [lazycsv](https://github.com/ashtum/lazycsv) | commit `6c36a9d` | CSV parsing |
+| [cpr](https://github.com/libcpr/cpr) | `1.14.2` | HTTP client for live prices |
+| [nlohmann/json](https://github.com/nlohmann/json) | `v3.12.0` | JSON parsing for the price response |
 
-Three things worth knowing:
+Four things worth knowing:
 
 - **No GLEW or GLAD.** ImGui's OpenGL3 backend carries its own OpenGL function
   loader, so the stack is GLFW + `OpenGL::GL` and nothing else.
@@ -224,6 +230,47 @@ Three things worth knowing:
   tens and makes the first configure far more likely to complete on a poor
   connection. lazycsv is the exception: it pins a commit hash rather than a tag,
   and `--depth 1 --branch` has nothing to land on for a bare commit.
+- **cpr builds libcurl from source.** It is the largest dependency here by a
+  wide margin, so the first configure takes noticeably longer than it used to.
+  It uses Schannel for TLS on Windows, which is why there is still no OpenSSL to
+  install and no `.dll` alongside the executable.
+
+---
+
+## Live prices
+
+`fetch_twelvedata_prices()` fetches the latest price for a set of symbols from
+[Twelve Data](https://twelvedata.com), so a simulation can be seeded from today
+rather than from the last row of a CSV. It needs a free API key, which the
+caller passes in:
+
+```cpp
+#include "data_fetcher.hpp"
+
+const std::string api_key = "...";
+auto prices = fetch_twelvedata_prices({"AAPL", "MSFT"}, api_key);
+```
+
+It returns a ticker → price `unordered_map` that is **empty** when nothing could
+be fetched, and omits any symbol the API did not answer for. Check for the
+ticker you want rather than assuming the map is complete:
+
+```cpp
+auto it = prices.find("AAPL");
+if (it != prices.end()) {
+    double s0 = it->second;
+}
+```
+
+Nothing is thrown: a missing key, a rejected key, a timeout and a non-JSON
+response each print one line to `stderr` and return an empty map, so a network
+problem cannot take down a run that would otherwise work from CSV data.
+
+> **The key is a secret, and the repository is public.** A literal in `main.cpp`
+> is committed and pushed with everything else. An environment variable —
+> `std::getenv("TWELVEDATA_API_KEY")` — keeps it out of the history, and a key
+> that has already been committed should be rotated, because deleting the line
+> does not remove it from the commits that already have it.
 
 ---
 

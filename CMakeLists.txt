@@ -87,7 +87,53 @@ FetchContent_Declare(lazycsv
     GIT_TAG        6c36a9d66be1e652b0c06d4e34fb053b93caf0ff
 )
 
-FetchContent_MakeAvailable(glfw imgui implot lazycsv)
+# ---------------------------------------------------------------------------
+# cpr and nlohmann/json -- what src/data/data_fetcher.cpp needs for live prices.
+#
+# cpr is a C++ wrapper over libcurl, and pulls curl in through its own
+# FetchContent (using Schannel for TLS on Windows, so there is no OpenSSL to
+# install). That keeps this a source build like the four above: no pacman step,
+# nothing vendored, and the executable stays statically linked.
+#
+# nlohmann/json is header-only, but it is fetched rather than copied in because
+# it ships a CMakeLists.txt that exports nlohmann_json::nlohmann_json, which
+# carries the include directory with it -- the same reason lazycsv is fetched
+# instead of dropped in as a header.
+#
+# Tests in both projects are off: they are not our tests, they roughly triple
+# the configure time, and cpr's need network access to pass.
+# ---------------------------------------------------------------------------
+set(CPR_BUILD_TESTS       OFF CACHE BOOL "" FORCE)
+set(CPR_BUILD_TESTS_SSL   OFF CACHE BOOL "" FORCE)
+set(CPR_BUILD_TESTS_PROXY OFF CACHE BOOL "" FORCE)
+set(JSON_BuildTests       OFF CACHE BOOL "" FORCE)
+
+# Since curl 8.13, curl depends on libpsl, and cpr's default is to build it --
+# which drags in meson as a build dependency and fails configure outright when
+# meson is not installed ("meson not found", at cpr's cmake/libpsl.cmake).
+# Installing meson would mean a pacman step for everyone on the team, which is
+# the thing the four dependencies above deliberately avoid.
+#
+# libpsl supplies curl's Public Suffix List support, used to validate cookie
+# domains. This project sends an API key as a query parameter and never uses
+# cookies, so turning it off costs nothing here -- cpr's own documentation for
+# this option is "psl support inside curl will be disabled".
+set(CPR_CURL_USE_LIBPSL    OFF CACHE BOOL "" FORCE)
+
+# cpr is pinned to a tag rather than a commit: it has real releases, and
+# GIT_SHALLOW becomes `--depth 1 --branch 1.14.2`.
+FetchContent_Declare(cpr
+    GIT_REPOSITORY https://github.com/libcpr/cpr.git
+    GIT_TAG        1.14.2
+    GIT_SHALLOW    TRUE
+)
+FetchContent_Declare(nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG        v3.12.0
+    GIT_SHALLOW    TRUE
+)
+
+FetchContent_MakeAvailable(glfw imgui implot lazycsv cpr nlohmann_json)
 
 find_package(OpenGL REQUIRED)
 
@@ -124,6 +170,7 @@ target_link_libraries(implot PUBLIC imgui)
 # ---------------------------------------------------------------------------
 add_library(quant STATIC
     src/data/csv_parser.cpp
+    src/data/data_fetcher.cpp
     src/engine/backtest.cpp
     src/engine/event.cpp
     src/engine/portfolio.cpp
@@ -142,8 +189,10 @@ target_include_directories(quant
     PRIVATE src          # private headers: engine/, ui/, math/statistics.hpp
 )
 
-# lazycsv is an INTERFACE target, so this only adds its include directory.
-target_link_libraries(quant PRIVATE lazycsv)
+# lazycsv and nlohmann_json are INTERFACE targets, so those two only add include
+# directories. cpr is a compiled library and brings curl and its own system
+# libraries (ws2_32, crypt32) in behind it.
+target_link_libraries(quant PRIVATE lazycsv cpr::cpr nlohmann_json::nlohmann_json)
 
 target_compile_options(quant PRIVATE -Wall -Wextra -Wpedantic)
 
